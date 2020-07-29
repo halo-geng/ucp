@@ -34,7 +34,7 @@
 #include <unistd.h>    /* getopt */
 #include <stdlib.h>    /* atoi */
 
-#include "timer.h"
+#include <sys/time.h>
 
 #define TEST_STRING_LEN        sizeof(test_message)
 #define DEFAULT_PORT           13337
