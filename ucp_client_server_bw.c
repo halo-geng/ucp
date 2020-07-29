@@ -45,8 +45,8 @@
 #define PRINT_INTERVAL         2000
 #define DEFAULT_NUM_ITERATIONS 1000000
 
-int size = 32;
-const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+int size = 64;
+const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 static uint16_t server_port          = DEFAULT_PORT;
 static int num_iterations            = DEFAULT_NUM_ITERATIONS;
 
