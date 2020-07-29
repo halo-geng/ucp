@@ -45,8 +45,8 @@
 #define PRINT_INTERVAL         2000
 #define DEFAULT_NUM_ITERATIONS 1000000
 
-int size = 64;
-const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+int size = 32;
+const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 static uint16_t server_port          = DEFAULT_PORT;
 static int num_iterations            = DEFAULT_NUM_ITERATIONS;
 
@@ -616,16 +616,6 @@ static int client_server_do_work(ucp_worker_h ucp_worker, ucp_ep_h ep,
 {
     int i, ret = 0;
 
-    // Timer init
-    double total_data;
-    double time_use=0.0;
-    struct timeval start;
-    struct timeval end;
-
-    gettimeofday(&start,NULL);
-    printf("start.tv_sec:%d\n",start.tv_sec);
-    printf("start.tv_usec:%d\n",start.tv_usec);
-
     for (i = 0; i < num_iterations; i++) {
         ret = client_server_communication(ucp_worker, ep, send_recv_type,
                                           is_server, i);
@@ -635,17 +625,6 @@ static int client_server_do_work(ucp_worker_h ucp_worker, ucp_ep_h ep,
             goto out;
         }
     }
-
-    gettimeofday(&end,NULL);
-    printf("Client Done.\n");
-    printf("end.tv_sec:%d\n",end.tv_sec);
-    printf("end.tv_usec:%d\n",end.tv_usec);
-    time_use=(end.tv_sec-start.tv_sec)+(double)(end.tv_usec-start.tv_usec)/1000000;//秒
-    total_data = (double)(size * num_iterations)/1000000.0; // MB
-    double bandwidth = total_data/time_use;
-    printf("The total_data is %lf.\n",total_data);
-    printf("The total_time is %lf.\n",time_use);
-    printf("The value size is %d, the bandwidth is %lf MBps or %lf Mbps.\n",size,bandwidth,bandwidth*8);
 
 out:
     return ret;
@@ -820,7 +799,28 @@ int main(int argc, char **argv)
         ret = run_server(ucp_context, ucp_worker, listen_addr, send_recv_type);
     } else {
         /* Client side */
+        // Timer init
+        double total_data;
+        double time_use=0.0;
+        struct timeval start;
+        struct timeval end;
+
+        gettimeofday(&start,NULL);
+        printf("start.tv_sec:%d\n",start.tv_sec);
+        printf("start.tv_usec:%d\n",start.tv_usec);
+
         ret = run_client(ucp_worker, server_addr, send_recv_type);
+
+        gettimeofday(&end,NULL);
+        printf("Client Done.\n");
+        printf("end.tv_sec:%d\n",end.tv_sec);
+        printf("end.tv_usec:%d\n",end.tv_usec);
+        time_use=(end.tv_sec-start.tv_sec)+(double)(end.tv_usec-start.tv_usec)/1000000;//秒
+        total_data = (double)(size * num_iterations)/1000000.0; // MB
+        double bandwidth = total_data/time_use;
+        printf("The total_data is %lf.\n",total_data);
+        printf("The total_time is %lf.\n",time_use);
+        printf("The value size is %d, the bandwidth is %lf MBps or %lf Mbps.\n",size,bandwidth,bandwidth*8);
     }
 
     ucp_worker_destroy(ucp_worker);
