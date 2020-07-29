@@ -45,8 +45,8 @@
 #define PRINT_INTERVAL         2000
 #define DEFAULT_NUM_ITERATIONS 1000000
 
-int size = 64;
-const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+int size = 32;
+const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 static uint16_t server_port          = DEFAULT_PORT;
 static int num_iterations            = DEFAULT_NUM_ITERATIONS;
 
@@ -623,7 +623,6 @@ static int client_server_do_work(ucp_worker_h ucp_worker, ucp_ep_h ep,
     struct timeval end;
 
     gettimeofday(&start,NULL);
-    printf("in the send_recv_stream and using the Stream API\n");
     printf("start.tv_sec:%d\n",start.tv_sec);
     printf("start.tv_usec:%d\n",start.tv_usec);
 
