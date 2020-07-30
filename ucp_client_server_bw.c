@@ -36,7 +36,7 @@
 
 #include <sys/time.h>
 
-#define TEST_STRING_LEN        sizeof(test_message)
+#define TEST_STRING_LEN        64 //sizeof(test_message)
 #define DEFAULT_PORT           13337
 #define IP_STRING_LEN          50
 #define PORT_STRING_LEN        8
@@ -45,7 +45,7 @@
 #define PRINT_INTERVAL         2000
 #define DEFAULT_NUM_ITERATIONS 1000000
 
-int size = 32;
+int size = 64;
 //const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 char *test_message;
 static uint16_t server_port          = DEFAULT_PORT;
@@ -250,10 +250,11 @@ static int request_finalize(ucp_worker_h ucp_worker, test_req_t *request,
     }
 
     /* Print the output of the first, last and every PRINT_INTERVAL iteration */
-    if ((current_iter == 0) || (current_iter == (num_iterations - 1)) ||
-        !((current_iter + 1) % (PRINT_INTERVAL))) {
-        print_result(is_server, recv_message, current_iter);
-    }
+    // 打印通信的结果，影响timer，注释掉
+    // if ((current_iter == 0) || (current_iter == (num_iterations - 1)) ||
+    //     !((current_iter + 1) % (PRINT_INTERVAL))) {
+    //     print_result(is_server, recv_message, current_iter);
+    // }
 
     return ret;
 }
