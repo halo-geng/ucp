@@ -36,7 +36,7 @@
 
 #include <sys/time.h>
 
-#define TEST_STRING_LEN        64 //sizeof(test_message)
+#define TEST_STRING_LEN        4096 //sizeof(test_message)
 #define DEFAULT_PORT           13337
 #define IP_STRING_LEN          50
 #define PORT_STRING_LEN        8
@@ -45,7 +45,7 @@
 #define PRINT_INTERVAL         2000
 #define DEFAULT_NUM_ITERATIONS 1000000
 
-int size = 64;
+int size = 4096;
 //const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 char *test_message;
 static uint16_t server_port          = DEFAULT_PORT;
@@ -825,7 +825,9 @@ int main(int argc, char **argv)
         double bandwidth = total_data/time_use;
         printf("The total_data is %lf.\n",total_data);
         printf("The total_time is %lf.\n",time_use);
-        printf("The value size is %d, the bandwidth is %lf MBps or %lf Mbps.\n",size,bandwidth,bandwidth*8);
+        printf("The value size is %d\n", size);
+        printf("The num_iterations is %d\n", num_iterations);
+        printf("the bandwidth is %lf MBps or %lf Mbps.\n",bandwidth,bandwidth*8);
     }
 
     ucp_worker_destroy(ucp_worker);
