@@ -46,7 +46,8 @@
 #define DEFAULT_NUM_ITERATIONS 1000000
 
 int size = 32;
-const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+//const  char test_message[]           = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+char *test_message;
 static uint16_t server_port          = DEFAULT_PORT;
 static int num_iterations            = DEFAULT_NUM_ITERATIONS;
 
@@ -773,6 +774,9 @@ err:
 
 int main(int argc, char **argv)
 {
+    test_message = (char *) malloc(sizeof(char)*size);
+    memset(test_message,'a',sizeof(char)*size);
+
     send_recv_type_t send_recv_type = CLIENT_SERVER_SEND_RECV_DEFAULT;
     char *server_addr = NULL;
     char *listen_addr = NULL;
