@@ -476,10 +476,12 @@ static int client_server_communication(ucp_worker_h worker, ucp_ep_h ep,
     switch (send_recv_type) {
     case CLIENT_SERVER_SEND_RECV_STREAM:
         /* Client-Server communication via Stream API */
+        printf("Client-Server communication via Stream API\n");
         ret = send_recv_stream(worker, ep, is_server, current_iter);
         break;
     case CLIENT_SERVER_SEND_RECV_TAG:
         /* Client-Server communication via Tag-Matching API */
+        printf("Client-Server communication via Tag-Matching API\n");
         ret = send_recv_tag(worker, ep, is_server, current_iter);
         break;
     default:
@@ -821,7 +823,7 @@ int main(int argc, char **argv)
         printf("end.tv_sec:%d\n",end.tv_sec);
         printf("end.tv_usec:%d\n",end.tv_usec);
         time_use=(end.tv_sec-start.tv_sec)+(double)(end.tv_usec-start.tv_usec)/1000000;//秒
-        total_data = (double)(size * num_iterations)/1000000.0; // MB
+        total_data = (double)(size); // MB = (double)(size * num_iterations)/1000000.0;
         double bandwidth = total_data/time_use;
         printf("The total_data is %lf.\n",total_data);
         printf("The total_time is %lf.\n",time_use);
